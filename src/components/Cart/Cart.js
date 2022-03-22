@@ -3,8 +3,13 @@ import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import { useContext } from "react";
 import CartContext from "../../store/cart-context";
+import Checkout from "./CheckoutForm/Checkout";
+import { useState } from "react";
+import useHttp from "../../hooks/use-http";
 
 const Cart = (props) => {
+  const [showCheckout, setShowCheckout] = useState(false);
+  const { isLoading, error, sendRequest: postOrder } = useHttp();
   const ctx = useContext(CartContext);
   const totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
   const hasItems = ctx.items.length > 0;
@@ -32,6 +37,26 @@ const Cart = (props) => {
     </ul>
   );
 
+  const orderHandler = () => {
+    setShowCheckout(true);
+  };
+  const submitHandler = async (userData) => {
+    await postOrder(
+      {
+        url: "Firebase url",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: { user: userData, orderItems: ctx.items, totalAmount },
+      },
+      () => {}
+    );
+
+    ctx.clearCart();
+    props.onClose();
+  };
+
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
@@ -39,12 +64,21 @@ const Cart = (props) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={props.onClose}>
-          Close
-        </button>
-        {hasItems && <button className={classes.button}>Order</button>}
-      </div>
+      {showCheckout && (
+        <Checkout onCancel={props.onClose} onConfirm={submitHandler} />
+      )}
+      {!showCheckout && (
+        <div className={classes.actions}>
+          <button className={classes["button--alt"]} onClick={props.onClose}>
+            Close
+          </button>
+          {hasItems && (
+            <button className={classes.button} onClick={orderHandler}>
+              Order
+            </button>
+          )}
+        </div>
+      )}
     </Modal>
   );
 };
