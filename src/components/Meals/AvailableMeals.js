@@ -1,49 +1,61 @@
 import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
+import useHttp from "../../hooks/use-http";
+import { useEffect, useState } from "react";
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [mealsList, setMealsList] = useState([]);
+  const { isLoading, error, sendRequest: fetchMeals } = useHttp();
+
+  useEffect(() => {
+    const transformDataFromHttp = (data) => {
+      const loadedMeals = [];
+
+      for (const mealsKey in data) {
+        loadedMeals.push({
+          id: mealsKey,
+          key: mealsKey,
+          name: data[mealsKey].name,
+          description: data[mealsKey].description,
+          price: data[mealsKey].price,
+        });
+      }
+
+      setMealsList(loadedMeals);
+    };
+
+    fetchMeals(
+      {
+        url: "Firebase url",
+      },
+      transformDataFromHttp
+    );
+  }, [fetchMeals]);
+
+  const mealsItemList = mealsList.map((meal) => (
     <MealItem
       id={meal.id}
-      key={meal.id}
+      key={meal.key}
       name={meal.name}
       description={meal.description}
       price={meal.price}
     ></MealItem>
   ));
+
+  let content = <ul>{mealsItemList}</ul>;
+
+  if (isLoading) {
+    content = <p>Loading meals...</p>;
+  }
+
+  if (error) {
+    content = <p>An error occurred!</p>;
+  }
+
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{content}</Card>
     </section>
   );
 };
