@@ -1,30 +1,31 @@
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
-import { useContext } from "react";
-import CartContext from "../../store/cart-context";
 import Checkout from "./CheckoutForm/Checkout";
 import { useState } from "react";
 import useHttp from "../../hooks/use-http";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/cart-slice";
 
 const Cart = (props) => {
+  const dispatch = useDispatch();
   const [showCheckout, setShowCheckout] = useState(false);
   const { isLoading, error, sendRequest: postOrder } = useHttp();
-  const ctx = useContext(CartContext);
-  const totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
-  const hasItems = ctx.items.length > 0;
+  const totalAmount = useSelector((state) => state.cart.totalPrice).toFixed(2);
+  const items = useSelector((state) => state.cart.items);
+  const hasItems = items.length > 0;
 
   const cartItemRemoveHanlder = (id) => {
-    ctx.removeItem(id);
+    dispatch(cartActions.removeItem(id));
   };
 
   const cartItemAddHanlder = (item) => {
-    ctx.addItem({ ...item, amount: 1 });
+    dispatch(cartActions.addItem({ ...item, amount: 1 }));
   };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
-      {ctx.items.map((item) => (
+      {items.map((item) => (
         <CartItem
           key={item.id}
           name={item.name}
@@ -40,20 +41,21 @@ const Cart = (props) => {
   const orderHandler = () => {
     setShowCheckout(true);
   };
+
   const submitHandler = async (userData) => {
     await postOrder(
       {
-        url: "Firebase url",
+        url: "https://react-test-5a607-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: { user: userData, orderItems: ctx.items, totalAmount },
+        body: { user: userData, orderItems: items, totalAmount },
       },
       () => {}
     );
 
-    ctx.clearCart();
+    dispatch(cartActions.clearCart());
     props.onClose();
   };
 

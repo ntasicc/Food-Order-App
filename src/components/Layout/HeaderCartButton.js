@@ -1,15 +1,16 @@
 import classes from "./HeaderCartButton.module.css";
 import CartIcon from "../Cart/CartIcon";
-import { useContext, useEffect, useState } from "react";
-import CartContext from "../../store/cart-context";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const HeaderCartButton = (props) => {
   const [btnAnimation, setBtnAnimation] = useState(false);
-  const ctx = useContext(CartContext);
+  const items = useSelector((state) => state.cart.items);
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const btnClasses = `${classes.button} ${btnAnimation ? classes.bump : ""}`;
 
   useEffect(() => {
-    if (ctx.items.length === 0) {
+    if (items.length === 0) {
       return;
     }
     setBtnAnimation(true);
@@ -21,7 +22,7 @@ const HeaderCartButton = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [ctx.items]);
+  }, [items]);
 
   return (
     <button className={btnClasses} onClick={props.onClick}>
@@ -29,11 +30,7 @@ const HeaderCartButton = (props) => {
         <CartIcon></CartIcon>
       </span>
       <span>Your cart</span>
-      <span className={classes.badge}>
-        {ctx.items.reduce((currNumber, item) => {
-          return currNumber + item.amount;
-        }, 0)}
-      </span>
+      <span className={classes.badge}>{totalQuantity}</span>
     </button>
   );
 };

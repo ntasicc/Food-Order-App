@@ -27,7 +27,7 @@ const AvailableMeals = () => {
 
     fetchMeals(
       {
-        url: "Firebase url",
+        url: "https://react-test-5a607-default-rtdb.europe-west1.firebasedatabase.app/meals.json",
       },
       transformDataFromHttp
     );
