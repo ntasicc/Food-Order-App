@@ -1,15 +1,16 @@
 import Header from "./components/Layout/Header";
-import Meals from "./components/Pages/Meals";
 import Cart from "./components/Cart/Cart";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "./store/cart-actions";
 import { Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
-import MealDetail from "./components/Pages/MealDetail";
 
 let initialRender = true;
+
+const MealDetail = React.lazy(() => import("./components/Pages/MealDetail"));
+const Meals = React.lazy(() => import("./components/Pages/Meals"));
 
 function App() {
   const dispatch = useDispatch();
@@ -40,17 +41,19 @@ function App() {
       {showCart && <Cart onClose={closeCartHandler} />}
       <Header onShowCartClick={showCartHandler} />
       <main>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/meals" />
-          </Route>
-          <Route path="/meals" exact>
-            <Meals />
-          </Route>
-          <Route path="/meals/:mealID" exact>
-            <MealDetail />
-          </Route>
-        </Switch>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/meals" />
+            </Route>
+            <Route path="/meals" exact>
+              <Meals />
+            </Route>
+            <Route path="/meals/:mealID" exact>
+              <MealDetail />
+            </Route>
+          </Switch>
+        </Suspense>
       </main>
     </>
   );
