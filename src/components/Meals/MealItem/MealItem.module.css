@@ -20,3 +20,19 @@
   color: #ad5502;
   font-size: 1.25rem;
 }
+
+.detailBtn {
+  border-radius: 50%;
+  margin-left: 8px;
+  background-color: #d26703;
+  font-weight: 700;
+  font-size: 12px;
+  height: 20px;
+  border: none;
+  box-shadow: 2px 2px;
+}
+
+.infoDiv {
+  display: flex;
+  flex-direction: row;
+}
