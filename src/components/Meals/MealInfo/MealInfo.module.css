@@ -1,0 +1,85 @@
+.mealInfo {
+  display: flex;
+  width: 100%;
+  margin-top: -5rem;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.summary {
+  text-align: center;
+  max-width: 40%;
+  margin: auto;
+  position: relative;
+  background-color: #383838;
+  color: white;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+}
+
+.summary h2 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.imgContainer {
+  height: 25rem;
+  width: 100%;
+}
+
+.imgContainer img {
+  display: inline-block;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.nutrition_allergy {
+  text-align: center;
+  max-width: 50%;
+  width: 100%;
+  margin: auto;
+  margin-left: -4rem;
+  position: relative;
+  background-color: rgb(208, 208, 208);
+  color: rgb(0, 0, 0);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+}
+
+.nutrition,
+.allergy {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.nutrition h3,
+.nutrition p,
+.allergy h3,
+.allergy p {
+  text-align: left;
+  margin-left: 3rem;
+}
+
+.nutrition ul {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.nutrition ul li {
+  display: flex;
+  background-color: #bb3d0b;
+  width: 100%;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.nutrition ul li p {
+  text-align: center;
+  margin-left: 0;
+}
