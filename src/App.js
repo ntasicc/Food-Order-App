@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./components/Layout/Header";
 import Cart from "./components/Cart/Cart";
 import { Suspense, useEffect, useState } from "react";
