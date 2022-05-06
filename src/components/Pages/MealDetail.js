@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import MealInfo from "../Meals/MealInfo/MealInfo";
 
 const MealDetail = () => {
   const params = useParams();
@@ -6,8 +7,7 @@ const MealDetail = () => {
 
   return (
     <>
-      <h1>Meal Detail</h1>
-      <p>{mealID}</p>
+      <MealInfo mealID={mealID}></MealInfo>
     </>
   );
 };
