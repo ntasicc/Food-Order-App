@@ -3,7 +3,7 @@ import Header from "./components/Layout/Header";
 import Cart from "./components/Cart/Cart";
 import { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartData } from "./store/cart-actions";
+import { fetchCartData } from "./store/cart/cart-actions";
 import { Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";

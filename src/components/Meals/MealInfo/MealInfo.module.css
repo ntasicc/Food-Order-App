@@ -78,6 +78,7 @@
   width: 100%;
   flex-direction: column;
   margin-right: 5px;
+  border-radius: 25px;
 }
 .nutrition ul li p {
   text-align: center;

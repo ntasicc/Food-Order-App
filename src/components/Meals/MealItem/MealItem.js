@@ -1,7 +1,7 @@
 import classes from "./MealItem.module.css";
 import MealItemForm from "./MealItemForm";
 import { useDispatch } from "react-redux";
-import { cartActions } from "../../../store/cart-slice";
+import { cartActions } from "../../../store/cart/cart-slice";
 import { useHistory } from "react-router-dom";
 
 const MealItem = (props) => {

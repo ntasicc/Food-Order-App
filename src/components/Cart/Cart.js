@@ -5,7 +5,7 @@ import Checkout from "./CheckoutForm/Checkout";
 import { useState } from "react";
 import useHttp from "../../hooks/use-http";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "../../store/cart-slice";
+import { cartActions } from "../../store/cart/cart-slice";
 
 const Cart = (props) => {
   const dispatch = useDispatch();
