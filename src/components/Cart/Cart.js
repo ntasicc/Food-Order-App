@@ -45,7 +45,7 @@ const Cart = (props) => {
   const submitHandler = async (userData) => {
     await postOrder(
       {
-        url: "https://react-test-5a607-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+        url: `${process.env.REACT_APP_ORDER_URL}`,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
