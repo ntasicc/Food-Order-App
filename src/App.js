@@ -7,6 +7,7 @@ import { fetchCartData } from "./store/cart/cart-actions";
 import { Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
+import Auth from "./components/Pages/Auth";
 
 let initialRender = true;
 
@@ -49,6 +50,9 @@ function App() {
             </Route>
             <Route path="/meals" exact>
               <Meals />
+            </Route>
+            <Route path="/auth" exact>
+              <Auth />
             </Route>
             <Route path="/meals/:mealID" exact>
               <MealDetail />
