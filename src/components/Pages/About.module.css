@@ -1,0 +1,6 @@
+.mapSection {
+  display: flex;
+  flex-direction: row;
+  height: 30rem;
+  margin-bottom: 2rem;
+}
