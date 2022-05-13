@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import classes from "./MealInfo.module.css";
 
 const MealInfo = (props) => {
-  const [meal, setMeal] = useState([]);
+  const [meal, setMeal] = useState({});
   const { isLoading, error, sendRequest: fetchMeal } = useHttp();
 
   useEffect(() => {
