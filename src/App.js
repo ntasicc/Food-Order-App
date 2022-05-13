@@ -7,12 +7,13 @@ import { fetchCartData } from "./store/cart/cart-actions";
 import { Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
-import Auth from "./components/Pages/Auth";
 
 let initialRender = true;
 
 const MealDetail = React.lazy(() => import("./components/Pages/MealDetail"));
 const Meals = React.lazy(() => import("./components/Pages/Meals"));
+const Auth = React.lazy(() => import("./components/Pages/Auth"));
+const About = React.lazy(() => import("./components/Pages/About"));
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,12 @@ function App() {
             </Route>
             <Route path="/meals/:mealID" exact>
               <MealDetail />
+            </Route>
+            <Route path="/about" exact>
+              <About />
+            </Route>
+            <Route path="*" exact>
+              <Redirect to="/meals" />
             </Route>
           </Switch>
         </Suspense>
