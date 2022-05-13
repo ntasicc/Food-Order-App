@@ -7,7 +7,7 @@ const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
-        <h1>Mission Sushi</h1>
+        <h1>🍣 Mission Sushi</h1>
         <nav className={classes.nav}>
           <ul>
             <li>
@@ -18,6 +18,11 @@ const Header = (props) => {
             <li>
               <NavLink to="/about" activeClassName={classes.active}>
                 About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/auth" activeClassName={classes.active}>
+                Test Auth
               </NavLink>
             </li>
           </ul>
