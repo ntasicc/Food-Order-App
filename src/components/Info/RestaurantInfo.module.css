@@ -1,0 +1,36 @@
+.info {
+  text-align: center;
+  width: 50%;
+  position: relative;
+  background-color: rgb(95, 95, 82);
+  color: white;
+  border-radius: 14px;
+  padding: 1rem;
+  margin-right: 1rem;
+}
+
+.info h2 {
+  font-size: 2.5rem;
+  margin-top: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+}
+
+.wrapper img {
+  width: 15rem;
+  height: 12rem;
+  margin: auto;
+}
+
+.contact {
+  text-align: left;
+  margin: auto;
+}
+
+.contact p {
+  margin-top: 1.5rem;
+}
