@@ -4,9 +4,12 @@ import Cart from "./components/Cart/Cart";
 import { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "./store/cart/cart-actions";
+import { fetchUserData } from "./store/auth/auth-actions";
 import { Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Route } from "react-router-dom";
+import LoadingSpinner from "./components/UI/LoadingSpinner";
+import Footer from "./components/Layout/Footer";
 
 let initialRender = true;
 
@@ -37,6 +40,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCartData());
+    dispatch(fetchUserData());
   }, [dispatch]);
 
   return (
@@ -44,7 +48,7 @@ function App() {
       {showCart && <Cart onClose={closeCartHandler} />}
       <Header onShowCartClick={showCartHandler} />
       <main>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <Switch>
             <Route path="/" exact>
               <Redirect to="/meals" />
@@ -66,6 +70,7 @@ function App() {
             </Route>
           </Switch>
         </Suspense>
+        <Footer></Footer>
       </main>
     </>
   );
