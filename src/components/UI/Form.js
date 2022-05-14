@@ -62,7 +62,17 @@ const Form = (props) => {
 
   let formIsValid = false;
 
-  if (nameIsValid && streetIsValid && postalIsValid && cityIsValid) {
+  if (props.isSignin && emailIsValid && passwordIsValid) formIsValid = true;
+
+  if (
+    props.isSignup &&
+    nameIsValid &&
+    streetIsValid &&
+    postalIsValid &&
+    cityIsValid &&
+    emailIsValid &&
+    passwordIsValid
+  ) {
     formIsValid = true;
   }
 
