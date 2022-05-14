@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import useHttp from "../../hooks/use-http";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AvailableMeals = () => {
   const [mealsList, setMealsList] = useState([]);
@@ -46,7 +47,7 @@ const AvailableMeals = () => {
   let content = <ul>{mealsItemList}</ul>;
 
   if (isLoading) {
-    content = <p>Loading meals...</p>;
+    content = <LoadingSpinner />;
   }
 
   if (error) {

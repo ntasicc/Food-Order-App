@@ -6,6 +6,7 @@ import { useState } from "react";
 import useHttp from "../../hooks/use-http";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart/cart-slice";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Cart = (props) => {
   const dispatch = useDispatch();
@@ -66,9 +67,11 @@ const Cart = (props) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-      {showCheckout && (
+      {showCheckout && !isLoading && (
         <Checkout onCancel={props.onClose} onConfirm={submitHandler} />
       )}
+      {showCheckout && isLoading && <LoadingSpinner />}
+      {showCheckout && error && <p>An error occurred!</p>}
       {!showCheckout && (
         <div className={classes.actions}>
           <button className={classes["button--alt"]} onClick={props.onClose}>
