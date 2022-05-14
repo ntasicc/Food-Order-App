@@ -55,3 +55,27 @@
 .nav a.active {
   text-decoration: underline;
 }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.logButton {
+  width: 6rem;
+  background-color: #571b01;
+  margin-left: 1rem;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border-style: none;
+  border-radius: 25px;
+  margin-right: -5rem;
+}
+
+.logButton:hover,
+.logButton:active {
+  color: #bebbbb;
+  font-size: 18px;
+  background-color: #2c0d00;
+}
