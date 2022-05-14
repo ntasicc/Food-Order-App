@@ -5,7 +5,8 @@ import Card from "../UI/Card";
 import Form from "../UI/Form";
 import classes from "./AuthForm.module.css";
 import { authActions } from "../../store/auth/auth-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AuthForm = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const AuthForm = () => {
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_AUTH_KEY}`;
     }
+
     sendRequest(
       {
         url: url,
@@ -54,6 +56,8 @@ const AuthForm = () => {
   return (
     <section className={classes.auth}>
       <Card>
+        {isLoading && <LoadingSpinner />}
+        {error && <p>An error occurred!</p>}
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <Form
           onConfirm={onSubmit}
