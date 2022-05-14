@@ -5,28 +5,28 @@ const authSlice = createSlice({
   initialState: {
     token: "",
     expirationTime: 0,
-    isLogedIn: false,
+    isLoggedIn: false,
   },
   reducers: {
     login(state, action) {
       state.token = action.payload.token;
       state.expirationTime = action.payload.expiration;
-      state.isLogedIn = true;
-      localStorage.setItem(
+      state.isLoggedIn = true;
+      sessionStorage.setItem(
         "user",
         JSON.stringify({
           token: action.payload.token,
           expirationTime: action.payload.expiration,
-          isLogedIn: true,
+          isLoggedIn: true,
         })
       );
     },
-  },
-  logout(state) {
-    state.token = "";
-    state.expirationTime = 0;
-    state.isLogedIn = false;
-    localStorage.removeItem("user");
+    logout(state) {
+      state.token = "";
+      state.expirationTime = 0;
+      state.isLoggedIn = false;
+      sessionStorage.removeItem("user");
+    },
   },
 });
 
