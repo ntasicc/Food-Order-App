@@ -1,63 +1,32 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import useHttp from "../../hooks/use-http";
+
 import Card from "../UI/Card";
 import Form from "../UI/Form";
 import classes from "./AuthForm.module.css";
-import { authActions } from "../../store/auth/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
-import LoadingSpinner from "../UI/LoadingSpinner";
+
+import { useDispatch } from "react-redux";
 
 const AuthForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
-  const { isLoading, error, sendRequest } = useHttp();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const transformDataFromHttp = (data) => {
-    dispatch(
-      authActions.login({
-        expiration: data.expiresIn,
-        token: data.idToken,
-      })
-    );
-    history.replace("/");
-  };
-
   const onSubmit = (data) => {
-    let url;
-    if (isLogin) {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_AUTH_KEY}`;
-    } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_AUTH_KEY}`;
-    }
-
-    sendRequest(
-      {
-        url: url,
-        method: "POST",
-        body: {
-          email: data.email,
-          password: data.password,
-          returnSecureToken: true,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-      transformDataFromHttp
-    );
+    dispatch({
+      type: "LOGIN_REQUEST",
+      payload: [data.email, data.password, isLogin],
+    });
+    history.replace("/");
   };
 
   return (
     <section className={classes.auth}>
       <Card>
-        {isLoading && <LoadingSpinner />}
-        {error && <p>An error occurred!</p>}
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <Form
           onConfirm={onSubmit}

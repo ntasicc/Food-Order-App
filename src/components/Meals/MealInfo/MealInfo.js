@@ -1,42 +1,15 @@
-import useHttp from "../../../hooks/use-http";
-import { useEffect, useState } from "react";
 import classes from "./MealInfo.module.css";
+import { useSelector } from "react-redux";
 
 const MealInfo = (props) => {
-  const [meal, setMeal] = useState({});
-  const { isLoading, error, sendRequest: fetchMeal } = useHttp();
+  const meal = useSelector((state) =>
+    state.meals.meals.find((meal) => meal.id === props.mealID)
+  );
 
-  useEffect(() => {
-    const transformDataFromHttp = (data) => {
-      const loadedMeal = {
-        id: data,
-        key: data,
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        summary: data.summary,
-        image: data.image,
-        energy: data.energy,
-        totalFat: data.totalFat,
-        satFat: data.satFat,
-        salt: data.salt,
-        sugars: data.sugars,
-        allergy: data.allergy,
-      };
-      setMeal(loadedMeal);
-    };
-
-    fetchMeal(
-      {
-        url: `https://react-test-5a607-default-rtdb.europe-west1.firebasedatabase.app/meals/${props.mealID}.json`,
-      },
-      transformDataFromHttp
-    );
-  }, [fetchMeal]);
-
+  console.log(meal);
   return (
     <>
-      {error ? (
+      {!meal ? (
         <div>Meal does not exist.</div>
       ) : (
         <div className={classes.mealInfo}>

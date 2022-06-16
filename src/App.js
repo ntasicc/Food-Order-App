@@ -36,11 +36,13 @@ function App() {
       return;
     }
     sessionStorage.setItem("cartData", JSON.stringify(cartData));
-  }, [cartData.items]);
+  }, [cartData]);
 
   useEffect(() => {
-    dispatch(fetchCartData());
+    //dispatch(fetchCartData());
     dispatch(fetchUserData());
+    dispatch({ type: "LOAD_CART" });
+    dispatch({ type: "LOAD_MEALS" });
   }, [dispatch]);
 
   return (

@@ -44,19 +44,10 @@ const Cart = (props) => {
   };
 
   const submitHandler = async (userData) => {
-    await postOrder(
-      {
-        url: `${process.env.REACT_APP_ORDER_URL}`,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: { user: userData, orderItems: items, totalAmount },
-      },
-      () => {}
-    );
-
-    dispatch(cartActions.clearCart());
+    dispatch({
+      type: "PLACE_ORDER_REQUEST",
+      payload: { userData, items, totalAmount },
+    });
     props.onClose();
   };
 

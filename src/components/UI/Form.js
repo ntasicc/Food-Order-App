@@ -76,9 +76,20 @@ const Form = (props) => {
     formIsValid = true;
   }
 
+  if (
+    props.isCheckout &&
+    nameIsValid &&
+    streetIsValid &&
+    postalIsValid &&
+    cityIsValid
+  ) {
+    formIsValid = true;
+  }
+
   const confirmHandler = (event) => {
     event.preventDefault();
     if (!formIsValid) {
+      console.log("hey");
       return;
     }
 

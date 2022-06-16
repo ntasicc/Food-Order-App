@@ -1,40 +1,15 @@
 import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-import useHttp from "../../hooks/use-http";
-import { useEffect, useState } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const AvailableMeals = () => {
-  const [mealsList, setMealsList] = useState([]);
-  const { isLoading, error, sendRequest: fetchMeals } = useHttp();
+  const mealsList = useSelector((state) => state.meals.meals);
+  const error = useSelector((state) => state.meals.error);
+  const isLoading = useSelector((state) => state.meals.isLoading);
 
-  useEffect(() => {
-    const transformDataFromHttp = (data) => {
-      const loadedMeals = [];
-
-      for (const mealsKey in data) {
-        loadedMeals.push({
-          id: mealsKey,
-          key: mealsKey,
-          name: data[mealsKey].name,
-          description: data[mealsKey].description,
-          price: data[mealsKey].price,
-        });
-      }
-
-      setMealsList(loadedMeals);
-    };
-
-    fetchMeals(
-      {
-        url: `${process.env.REACT_APP_MEAL_URL}`,
-      },
-      transformDataFromHttp
-    );
-  }, [fetchMeals]);
-
-  const mealsItemList = mealsList.map((meal) => (
+  const mealsItemList = mealsList?.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.key}
